@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký - Cinema</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+
+<!-- Form đăng ký -->
+<div class="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
+    <h2 class="text-2xl font-bold mb-4 text-center">Đăng Ký</h2>
+    <form method="post" action="/register" class="flex flex-col">
+        <input type="text" name="username" placeholder="Tên đăng nhập" required
+               class="p-3 bg-gray-700 text-white rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="email" name="email" placeholder="Email" required
+               class="p-3 bg-gray-700 text-white rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input type="password" name="password" placeholder="Mật khẩu" required
+               class="p-3 bg-gray-700 text-white rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="submit"
+                class="bg-green-500 hover:bg-green-600 text-white py-2 rounded font-bold">
+            Đăng ký
+        </button>
+    </form>
+
+    <p class="text-red-500 mt-3 text-center" th:if="${error}" th:text="${error}"></p>
+
+    <p class="text-center mt-4 text-gray-400">
+        Đã có tài khoản?
+        <a href="/login" class="text-blue-400 hover:underline">Đăng nhập ngay!</a>
+    </p>
+</div>
+
+</body>
+</html>

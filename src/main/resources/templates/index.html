@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Đặt vé xem phim</title>
+</head>
+<body>
+<h2>Chọn ghế</h2>
+
+<form th:action="@{/booking/book}" method="post">
+  <input type="hidden" name="showId" th:value="${showId}" />
+  <label>Họ tên:</label>
+  <input type="text" name="userName" required />
+
+  <label>Email:</label>
+  <input type="email" name="userEmail" required />
+
+  <label>Chọn ghế:</label>
+  <select name="seatId">
+    <option th:each="seat : ${seats}"
+            th:value="${seat.id}"
+            th:text="${seat.seatNumber ?: 'Không xác định'}"
+            th:disabled="${seat.isBooked}">
+    </option>
+  </select>
+
+
+  <button type="submit">Đặt vé</button>
+</form>
+
+<div th:if="${successMessage}" th:text="${successMessage}" style="color: green;"></div>
+<div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+</body>
+</html>

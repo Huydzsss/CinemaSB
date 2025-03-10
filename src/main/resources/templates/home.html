@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ - Cinema</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+<!-- Header -->
+<header class="bg-gray-800 p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Cinema Booking</h1>
+    <div>
+        <span th:if="${user != null}" class="mr-4">Xin chào, <span th:text="${user}"></span></span>
+        <a th:href="${user != null ? '/logout' : '/login'}"
+           class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded">
+            <span th:text="${user != null ? 'Đăng xuất' : 'Đăng nhập'}"></span>
+        </a>
+    </div>
+</header>
+
+
+
+<!-- Danh sách phim -->
+<main class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold mb-6">Phim Đang Chiếu</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div th:each="movie : ${movies}" class="bg-gray-800 p-4 rounded-lg shadow-lg">
+            <img th:src="${movie.posterUrl}" alt="Poster phim" class="w-full h-60 object-cover rounded">
+            <h3 class="text-xl font-semibold mt-3" th:text="${movie.title}"></h3>
+            <p class="text-gray-400" th:text="${movie.description}"></p>
+            <p class="text-sm text-gray-300 mt-2">Thời lượng: <span th:text="${movie.duration} + ' phút'"></span></p>
+            <a th:href="@{'/booking/' + ${movie.id}}"
+               class="block mt-4 bg-green-500 hover:bg-green-600 text-center py-2 rounded">
+                Đặt vé
+            </a>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 p-4 text-center mt-6">
+    <p>&copy; 2025 Cinema Booking. All rights reserved.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt vé xem phim</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+<!-- Header -->
+<header class="bg-gray-800 p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold"><i class="fas fa-film"></i> Đặt vé xem phim</h1>
+    <div>
+        <span th:if="${user}" class="mr-4">Xin chào, <span th:text="${user}"></span></span>
+        <a th:href="${user != null ? '/logout' : '/login'}"
+           class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded">
+            <i class="fas fa-sign-out-alt"></i>
+            <span th:text="${user != null ? 'Đăng xuất' : 'Đăng nhập'}"></span>
+        </a>
+    </div>
+</header>
+
+<!-- Booking Form -->
+<div class="container mx-auto mt-10 p-6 bg-gray-800 rounded-lg shadow-lg">
+    <h2 class="text-xl font-semibold mb-4"><i class="fas fa-chair"></i> Chọn ghế</h2>
+
+    <form th:action="@{/booking/book}" method="post" class="space-y-4">
+        <input type="hidden" name="showId" th:value="${showId}" />
+        <input type="hidden" name="movieName" th:value="${movieName}" />
+        <input type="hidden" name="totalPrice" th:value="${totalPrice ?: '100000'}" />
+
+
+        <div>
+            <div>
+                <label class="block text-sm font-medium"><i class="fas fa-chair"></i> Chọn ghế:</label>
+                <select name="seatId"
+                        class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none">
+                    <option th:each="seat : ${seats}"
+                            th:value="${seat.id}"
+                            th:text="${seat.seatNumber + (seat.isBooked ? ' - Đã đặt bởi ' + seat.booking.user.username : '')}"
+                            th:disabled="${seat.isBooked}">
+                    </option>
+                </select>
+            </div>
+
+        </div>
+
+        <button type="submit"
+                class="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded mt-4">
+            <i class="fas fa-ticket-alt"></i> Đặt vé
+        </button>
+    </form>
+
+
+
+    <div th:if="${successMessage}" th:text="${successMessage}"
+         class="mt-4 text-green-400 font-medium"></div>
+    <div th:if="${errorMessage}" th:text="${errorMessage}"
+         class="mt-4 text-red-400 font-medium"></div>
+</div>
+</body>
+</html>
